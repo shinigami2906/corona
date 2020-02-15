@@ -46,6 +46,35 @@ function crawlerData() {
         let script = dom.window.document.querySelector(".portlet-body script").textContent;
         data = parserScript(script);
       
-    })
+    }) 
 }
 crawlerData();
+/*axios.create({
+    method:"GET",
+    url:"https://ncov.moh.gov.vn/"
+})().then(response => {
+    let data = response.data;
+    let dom = new jsdom(data);
+    let arr = []
+    let option = dom.window.document.querySelectorAll("#_congbothongke_WAR_coronadvcportlet_vietNam option");
+    for (let i = 1; i< option.length; i++){
+        arr.push({
+            name : option[i].textContent.replace("tỉnh ","").replace("thành phố ","").replace("Thành phố ",""),
+            newID : option[i].getAttribute("value")
+        })
+    }
+  fs.readFile("vn.txt",(err,data) =>{
+      data = JSON.parse(data);
+      data.provinces.forEach(ele =>{
+          arr.forEach(x=>{
+              if (ele.name == x.name) ele.newID = x.newID;
+              if (ele.name == "Hòa Bình") ele.newID = "17";
+              if (ele.id == "VN-43") ele.newID = "77";
+              if (ele.id == "VN-26") ele.newID = "46";
+          })
+      })
+     fs.writeFile("vn.txt",JSON.stringify(data), (err)=>{
+
+     } )
+  })
+})*/
