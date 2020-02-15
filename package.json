@@ -1,7 +1,6 @@
 {
   "name": "hoang",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +14,12 @@
   "bugs": {
     "url": "https://github.com/shinigami2906/corona/issues"
   },
-  "homepage": "https://github.com/shinigami2906/corona#readme"
+  "homepage": "https://github.com/shinigami2906/corona#readme",
+  "description": "",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "jsdom": "^16.1.0",
+    "mysql": "^2.18.1"
+  }
 }
