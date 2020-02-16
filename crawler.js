@@ -28,7 +28,6 @@ function crawlerData() {
             }
             
         })
-        console.log(arr)
         fs.writeFile("world.txt",JSON.stringify({
             deaths : span[1].textContent,
             cases :span[0].textContent,
@@ -44,37 +43,28 @@ function crawlerData() {
         let data = response.data;
         let dom = new jsdom(data);
         let script = dom.window.document.querySelector(".portlet-body script").textContent;
-        data = parserScript(script);
-      
-    }) 
-}
-crawlerData();
-/*axios.create({
-    method:"GET",
-    url:"https://ncov.moh.gov.vn/"
-})().then(response => {
-    let data = response.data;
-    let dom = new jsdom(data);
-    let arr = []
-    let option = dom.window.document.querySelectorAll("#_congbothongke_WAR_coronadvcportlet_vietNam option");
-    for (let i = 1; i< option.length; i++){
-        arr.push({
-            name : option[i].textContent.replace("tỉnh ","").replace("thành phố ","").replace("Thành phố ",""),
-            newID : option[i].getAttribute("value")
-        })
-    }
-  fs.readFile("vn.txt",(err,data) =>{
-      data = JSON.parse(data);
-      data.provinces.forEach(ele =>{
-          arr.forEach(x=>{
-              if (ele.name == x.name) ele.newID = x.newID;
-              if (ele.name == "Hòa Bình") ele.newID = "17";
-              if (ele.id == "VN-43") ele.newID = "77";
-              if (ele.id == "VN-26") ele.newID = "46";
-          })
-      })
-     fs.writeFile("vn.txt",JSON.stringify(data), (err)=>{
+        script = parserScript(script);
+        fs.readFile("vn.txt", (err,data)=>{
+            data = JSON.parse(data);
+            data.provinces.forEach(x =>{
+                script.forEach(y=>{
+                    if (x.newID == y.ma) {
+                        x.deaths = y.tuVong;
+                        x.cases = y.soCaNhiem;
+                    } 
+                    if (y.ma == "VNALL") {
+                        data.deaths = y.tuVong;
+                        data.cases = y. soCaNhiem;
+                    }
+                })
+            })
+            
+            fs.writeFile("vn.txt", JSON.stringify(data),(err)=>{
 
-     } )
-  })
-})*/
+            })
+        })
+
+    })
+}
+
+crawlerData();

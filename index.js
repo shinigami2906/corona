@@ -11,10 +11,10 @@ app.get("/",(req,res)=>{
 
 app.listen(3000)
 
-app.post("/xx",(req,res)=>{
-    let x = {}
-    x.provinces = req.body;
-    fs.writeFile("vn.txt", JSON.stringify(x), (err)=>{
-        
+app.get("/map", (req,res)=>{
+
+    fs.readFile("vn.txt",(err,data)=>{
+        data = JSON.parse(data);
+        res.json(data);
     })
 })
