@@ -11,9 +11,16 @@ app.get("/",(req,res)=>{
 
 app.listen(3000)
 
-app.get("/map", (req,res)=>{
+app.get("/vn", (req,res)=>{
 
     fs.readFile("vn.txt",(err,data)=>{
+        data = JSON.parse(data);
+        res.json(data);
+    })
+})
+app.get("/world", (req,res)=>{
+
+    fs.readFile("world.txt",(err,data)=>{
         data = JSON.parse(data);
         res.json(data);
     })
